@@ -1,0 +1,115 @@
+
+
+groups:
+    # Data Engineer
+  - group:
+      name: de_admin
+      ignore: True
+      hdfs:
+        - path: /raw
+          permission: rwx
+          recursive: True
+          type:
+            - group
+            - default
+        - path: /cleansed
+          permission: rwx
+          recursive: True
+          type:
+            - group
+            - default
+        - path: /app
+          permission: rwx
+          recursive: True
+          type:
+            - group
+            - default
+      hive:
+        role_name: de_admin
+        tables:
+          - name: safe_credit_scoring
+            permission:
+              - SELECT
+              - INSERT
+              - CREATE
+  - group:
+      name: de_user
+      ignore: True
+      hdfs:
+        - path: /raw
+          permission: rwx
+          recursive: True
+          type:
+            - group
+            - default
+        - path: /cleansed
+          permission: rwx
+          recursive: True
+          type:
+            - group
+            - default
+        - path: /app
+          permission: rwx
+          recursive: True
+          type:
+            - group
+            - default
+    # Techinal User
+  - group:
+      name: credit_scoring
+      ignore: False
+      hdfs:
+        - path: /raw/cbs/credit_scoring
+          permission: r-x
+          recursive: True
+          type:
+            - group
+            - default
+        - path: /raw/lor/credit_scoring
+          permission: r-x
+          recursive: True
+          type:
+            - group
+            - default
+        - path: /raw/dlor/credit_scoring
+          permission: r-x
+          recursive: True
+          type:
+            - group
+            - default
+        - path: /cleansed/lor/credit_scoring
+          permission: rwx
+          recursive: True
+          type:
+            - group
+            - default
+        - path: /app/config/credit_scoring
+          permission: rwx
+          recursive: True
+          type:
+            - group
+            - default
+      hive:
+        role_name: credit_scoring
+        tables:
+          - name: safe_credit_scoring
+            permission:
+              - SELECT
+              - INSERT
+              - CREATE
+          - name: unsafe_credit_scoring
+            permission:
+              - SELECT
+              - INSERT
+              - CREATE
+  - group:
+      name: hashtag-timeline
+      ignore: False
+      hbase:
+        tables:
+          - name: timeline-transactions
+            permission: RWX
+          - name: eslip-transactions
+            permission: RWX
+          - name: search-transactions
+            permission: RWX
